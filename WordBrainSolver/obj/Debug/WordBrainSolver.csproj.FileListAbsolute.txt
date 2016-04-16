@@ -1,0 +1,6 @@
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\bin\Debug\WordBrainSolver.exe.config
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\bin\Debug\WordBrainSolver.exe
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\bin\Debug\WordBrainSolver.pdb
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\obj\Debug\WordBrainSolver.exe
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\obj\Debug\WordBrainSolver.pdb
+D:\Projects\C#\WordBrainSolver\WordBrainSolver\obj\Debug\WordBrainSolver.csprojResolveAssemblyReference.cache
