@@ -10,15 +10,15 @@ namespace WordBrainSolver
 {
     class Program
     {
+        // Not used anymore since connecting to Database
         public static string fileName = "words.txt";
 
+        // SQL Server Database Connection
         public static string ConnectionString = "Data Source=STOVEPIPE;Initial Catalog=WordsDB;Integrated Security=True;";
 
         static void Main(string[] args)
         {
-            //GetWord(new List<List<Letter>>(), 6, 4);
-
-
+            // Prompt needed at end of this loop so console can be closed from console screen.
             while (true)
             {
 
@@ -84,10 +84,12 @@ namespace WordBrainSolver
                 List<string> wordList = new List<string>();
                 GetWords(letters, wordLengths, puzzleSize, wordList);
 
+                // Turn list into comma delimited string so database can process this.
                 var commaDelim = string.Join(",", wordList.Select(wl => wl.ToLower()));
 
                 DataTable results = new DataTable();
 
+                // Database needs split string function to process the comma delimited list.
                 var query = string.Format("select distinct ss.* from dbo.fnSplitString('{0}',',') ss inner join words w on w.Word = ss.splitdata", commaDelim);
 
                 using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -147,6 +149,7 @@ namespace WordBrainSolver
                     var letter = new Letter();
                     letter.Used = false;
                     letter.Value = letters.ElementAt(i)[j];
+                    // Grid is x,y coordinates with 0,0 being at top left corner
                     letter.Pos = new List<int> { j, i };
 
                     letterRow.Add(letter);
@@ -199,7 +202,7 @@ namespace WordBrainSolver
                 // Remove possible moves outside of the letters grid
                 possibleMoves.RemoveAll(pm => pm.First() < 0 || pm.Last() < 0 || pm.First() > (puzzleSize - 1) || pm.Last() > (puzzleSize - 1));
 
-                // Remove possible move if it goes on an already used letter
+                // Remove possible move if it goes on an already used letter or if the letter is a blank
                 possibleMoves.RemoveAll(pm => lettersGrid.Any(lr => lr.Any(l => (l.Pos.SequenceEqual(pm) && (l.Used == true || l.Value == '-')))));
 
                 for (int i = 0; i < possibleMoves.Count(); i++)
